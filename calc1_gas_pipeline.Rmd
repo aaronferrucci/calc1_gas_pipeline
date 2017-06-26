@@ -1,0 +1,22 @@
+---
+title: "Exploring a quiz question from Coursera's Calc1 course, optimzation chapter"
+output: html_notebook
+---
+
+ You are building a new house on a cartesian plane whose units are measured in miles. Your house is to be located at the point (2,0). Unfortunately, the existing gas line follows the curve $$y=\sqrt{16 x^2+5x+16}$$
+
+It costs 400 dollars per mile to install new pipe connecting your house to the existing line.
+
+What is the least amount of money you could pay to get hooked up to the system?
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
