@@ -9,6 +9,20 @@ It costs 400 dollars per mile to install new pipe connecting your house to the e
 
 What is the least amount of money you could pay to get hooked up to the system?
 
+```{r}
+library(ggplot2)
+house <- data.frame(x=c(2), y=c(0))
+p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-2, 2) + guides(color=F)
+pipeline <- function(x) sqrt(16*x^2 + 5*x + 16)
+to_pipe <- function(xpt) return(geom_segment(aes(x=2, y=0, xend=xpt, yend=pipeline(xpt))))
+
+p + stat_function(fun=pipeline, color="blue") +
+  geom_segment(aes(x=2, y=0, xend=1.5, yend=pipeline(1.5))) +
+  geom_segment(aes(x=2, y=0, xend=0.75, yend=pipeline(0.75))) +
+  geom_segment(aes(x=2, y=0, xend=0, yend=pipeline(0)))
+```
+
+
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
