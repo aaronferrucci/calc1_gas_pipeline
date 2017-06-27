@@ -3,16 +3,27 @@ title: "Exploring a quiz question from Coursera's Calc1 course, optimzation chap
 output: html_notebook
 ---
 
- You are building a new house on a cartesian plane whose units are measured in miles. Your house is to be located at the point (2,0). Unfortunately, the existing gas line follows the curve $$y=\sqrt{16 x^2+5x+16}$$
+You are building a new house on a cartesian plane whose units are measured in miles. Your house is to be located at the point (2,0). Unfortunately, the existing gas line follows the curve $$y=\sqrt{16 x^2+5x+16}$$
 
 It costs 400 dollars per mile to install new pipe connecting your house to the existing line.
 
 What is the least amount of money you could pay to get hooked up to the system?
 
+Here's a picture of the situation. The gas pipeline veers toward the house, and then turns away. Eyeballing it, it might be 6 or 7 miles from the house to the closest point on the pipeline.
+
 ```{r}
 library(ggplot2)
 house <- data.frame(x=c(2), y=c(0))
-p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-2, 2) + ylim(-0.5, 9.5) + guides(color=F)
+p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-5, 5) + ylim(-0.5, 10) + guides(color=F) + coord_fixed()
+pipeline <- function(x) sqrt(16*x^2 + 5*x + 16)
+p + stat_function(fun=pipeline, color="blue")
+
+```
+
+```{r}
+library(ggplot2)
+house <- data.frame(x=c(2), y=c(0))
+p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-5, 5) + ylim(-0.5, 10) + guides(color=F) + coord_fixed()
 pipeline <- function(x) sqrt(16*x^2 + 5*x + 16)
 to_pipe <- function(xpt) return(geom_segment(aes(x=2, y=0, xend=xpt, yend=pipeline(xpt))))
 
@@ -39,16 +50,16 @@ p + stat_function(fun=pipeline, color="blue") +
 ```
 
 ```{r}
+library(ggplot2)
 cost <- function(x) 400 * sqrt(17*x^2 + x + 20)
+house <- data.frame(x=c(2), y=c(0))
+
+ggplot(data=house, mapping=aes(x=x, y=y), color="red") + xlim(-2, 2) + ylim(-1000, 5000) + stat_function(fun=cost, color="black")
 ```
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-```{r}
-plot(cars)
-```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
 
