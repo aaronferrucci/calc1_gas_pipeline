@@ -1,5 +1,5 @@
 ---
-title: "Exploring a quiz question from Coursera's Calc1 course, optimzation chapter"
+title: "Exploring a quiz question from Coursera's Calc1 course, optimization chapter"
 output: html_notebook
 ---
 
@@ -9,21 +9,37 @@ It costs 400 dollars per mile to install new pipe connecting your house to the e
 
 What is the least amount of money you could pay to get hooked up to the system?
 
-Here's a picture of the situation. The gas pipeline veers toward the house, and then turns away. Eyeballing it, it might be 6 or 7 miles from the house to the closest point on the pipeline.
-
 ```{r}
 library(ggplot2)
 house <- data.frame(x=c(2), y=c(0))
-p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-5, 5) + ylim(-0.5, 10) + guides(color=F) + coord_fixed()
+p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-5, 5) + ylim(-0.5, 21) + guides(color=F) + coord_fixed()
 pipeline <- function(x) sqrt(16*x^2 + 5*x + 16)
 p + stat_function(fun=pipeline, color="blue")
 
 ```
+Here's a picture of the situation. The gas pipeline veers toward the house, and then turns away. Eyeballing it, it might be 6 or 7 miles from the house to the closest point on the pipeline.
+
+
+
 
 ```{r}
 library(ggplot2)
 house <- data.frame(x=c(2), y=c(0))
-p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-5, 5) + ylim(-0.5, 10) + guides(color=F) + coord_fixed()
+p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-5, 5) + ylim(-0.5, 21) + guides(color=F) + coord_fixed()
+pipeline <- function(x) sqrt(16*x^2 + 5*x + 16)
+to_pipe <- function(xpt) return(geom_segment(aes(x=2, y=0, xend=xpt, yend=pipeline(xpt))))
+
+p + stat_function(fun=pipeline, color="blue") +
+  geom_segment(aes(x=2, y=0, xend=1.5, yend=pipeline(1.5))) +
+  geom_segment(aes(x=2, y=0, xend=0.75, yend=pipeline(0.75))) +
+  geom_segment(aes(x=2, y=0, xend=0, yend=pipeline(0)))
+```
+Zooming in:
+
+```{r}
+library(ggplot2)
+house <- data.frame(x=c(2), y=c(0))
+p <- ggplot(data=house, mapping=aes(x=x, y=y), color="red") + geom_point(aes(col="red")) + xlim(-2, 2) + ylim(-0.2, 42/5) + guides(color=F) + coord_fixed()
 pipeline <- function(x) sqrt(16*x^2 + 5*x + 16)
 to_pipe <- function(xpt) return(geom_segment(aes(x=2, y=0, xend=xpt, yend=pipeline(xpt))))
 
